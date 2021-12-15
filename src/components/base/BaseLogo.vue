@@ -24,16 +24,16 @@ export default {
     color: #E0AE77;
     background-color: #3A444F;
     border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 10px -5px rgba(34, 60, 80, 0.2);
-    -moz-box-shadow: 0px 0px 10px -5px rgba(34, 60, 80, 0.2);
-    box-shadow: 0px 0px 10px -5px rgba(34, 60, 80, 0.2);
+    -webkit-box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
+    -moz-box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
+    box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
   }
 
   .title {
     font-size: 40px;
     font-weight: 700;
     letter-spacing: 0.2rem;
-    text-shadow: 2px 1px 1px #E0AE77;
+    text-shadow: $base-text-shadow;
   }
 
   .line {

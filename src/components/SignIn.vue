@@ -3,25 +3,31 @@
     <div class="form-wrapper">
       <logo class="logo"/>
       <div class="form"></div>
+      <span>{{ $t('message.hello') }}</span>
+      <lang-switcher class="lang-switcher"/>
     </div>
   </div>
 </template>
 
 <script>
 import BaseLogo from './base/BaseLogo.vue';
+import LangSwitcher from './base/LangSwitcher.vue';
 import { SET_AUTH } from '../store/module/auth/actions';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'SignIn',
   components: {
-    logo: BaseLogo
+    logo: BaseLogo,
+    LangSwitcher
   },
   computed: {
     ...mapGetters(['isAutheficated'])
   },
   async created() {
     await this.$store.dispatch(SET_AUTH);
+  },
+  methods: {
   }
 }
 </script>
@@ -29,6 +35,7 @@ export default {
 <style lang="scss" scoped>
   .sign-in {
     height: 100%;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,10 +58,17 @@ export default {
     height: 450px;
     width: 490px;
     margin-top: 10%;
+    display: flex;
+    flex-direction: column;
     border: 2px solid #E0AE77;
     border-radius: 1.25rem;
-    -webkit-box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
-    -moz-box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
-    box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
+
+    @include base-box-shadow;
+  }
+
+  .lang-switcher {
+    position: absolute;
+    top: 5%;
+    right: 5%;
   }
 </style>
