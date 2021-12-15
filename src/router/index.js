@@ -9,9 +9,6 @@ const routes = [
     path: '/signIn',
     name: 'SignIn',
     component: SignIn,
-    meta: {
-      isGuarded: false
-    }
   },
   {
     path: '/about',
@@ -19,20 +16,17 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    meta: {
-      isGuarded: true
-    }
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 
 const router = new VueRouter({
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-  const currentUser = localStorage.getItem('isAutheficated');
-  if (!currentUser && to.name !== 'SignIn') {
+  const isAutheficated = localStorage.getItem('isAutheficated');
+  if (!isAutheficated && to.name !== 'SignIn') {
     next({
       name: 'SignIn'
     });

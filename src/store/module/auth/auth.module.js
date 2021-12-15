@@ -15,7 +15,7 @@ const getters = {
 const actions = {
   [SET_AUTH](context) {
     try {
-      localStorage.setItem('isAuthificated', true);
+      localStorage.setItem('isAutheficated', true);
       context.commit(SET_AUTHIFICATION);
     } catch (error) {
       context.commit(SET_ERROR, error);
