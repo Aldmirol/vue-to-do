@@ -1,21 +1,28 @@
 <template>
-  <div class="login-input-wrapper"
+  <div class="password-input-wrapper"
     :style="`width: ${width}; margin-top: ${marginTop}`"
   >
     <div class="title-wrapper">
-      <span class="login-title">
-        {{ $t('message.common.loginInput.title') }}
+      <span class="password-title">
+        {{ $t('message.common.passwordInput.title') }}
       </span>
     </div>
-    <div class="input-wrapper" :class="{ 'has-error': hasLoginError }">
-      <input class="login-input" type="text"
+    <div class="input-wrapper" :class="{ 'has-error': hasPasswordError }">
+      <input class="password-input" type="text"
+        :class="{ 'visible': isShowPassword }"
         :placeholder="placeholder"
         v-model="inputValue"
-        name="login-input"
+        name="password-input"
         @input="$emit('input', inputValue)"
-        v-validate="{ 'login-input': true }"
+        v-validate="{ 'password-input': true }"
       >
       <div class="faq-container">
+        <div class="password-eye">
+          <i :class="`far fa-eye${isShowPassword ? '' : '-slash'}`"
+            class="password-eye"
+            @click="isShowPassword = !isShowPassword"
+          ></i>
+        </div>
         <i class="far fa-question-circle" @mouseover="showNotice = true" @mouseleave="showNotice = false">
           <transition name="fade">
             <div v-show="showNotice" class="notice">
@@ -26,7 +33,7 @@
       </div>
     </div>
     <div class="error-wrapper">
-      <span class="login-error">
+      <span class="password-error">
         {{ errorMessageText }}
       </span>
     </div>
@@ -35,7 +42,7 @@
 
 <script>
 export default {
-  name: 'LoginInput',
+  name: 'PasswordInput',
   inject: ['$validator'],
   props: {
     width: {
@@ -57,22 +64,23 @@ export default {
   data() {
     return {
       showNotice: false,
-      inputValue: null
+      inputValue: null,
+      isShowPassword: false
     }
   },
   computed: {
     errorMessageText() {
-      return this.hasLoginError ? this.errorMessage : ''
+      return this.hasPasswordError ? this.errorMessage : ''
     },
-    hasLoginError() {
-      return this.$validator.errors.has('login-input');
+    hasPasswordError() {
+      return this.$validator.errors.has('password-input');
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .login-input-wrapper {
+  .password-input-wrapper {
     height: 110px;
     display: flex;
     justify-content: space-between;
@@ -88,7 +96,7 @@ export default {
     align-items: flex-start;
   }
 
-  .login-title {
+  .password-title {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.05rem;
@@ -108,9 +116,12 @@ export default {
 
     @include base-box-shadow;
 
-    .login-input {
-      width: 85%;
+    .password-input {
+      width: 75%;
+      box-sizing: border-box;
+      padding-top: 2px;
       font-size: 20px;
+      font-family: 'Bullet';
       border-radius: 5px;
       border: none;
       outline: none;
@@ -118,14 +129,20 @@ export default {
       color: $gold-color;
     }
 
-    .login-input::placeholder {
+    .password-input::placeholder {
       color: $thin-gold-color;
+      font-family: 'Noto Serif', serif;
+    }
+
+    .visible {
+      padding-top: 0;
+      font-family: 'Noto Serif', serif;
     }
 
     .faq-container {
-      width: 10%;
+      width: 20%;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
 
       i {
@@ -135,17 +152,29 @@ export default {
         color: $thin-gold-color;
         text-shadow: $base-text-shadow;
       }
+
+      .password-eye {
+        height: 100%;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          font-size: 21px;
+        }
+      }
     }
   }
 
   .notice {
     height: 110px;
-    width: 200px;
+    width: 240px;
     box-sizing: border-box;
     padding: 10px;
     position: absolute;
-    top: -55px;
-    right: -220px;
+    top: -50px;
+    right: -260px;
     font-size: 16px;
     font-weight: 100;
     letter-spacing: 0.05rem;
@@ -162,7 +191,7 @@ export default {
     content: "";
     position: absolute;
     left: -31px;
-    bottom: 31px;
+    bottom: 35px;
     border: 15px solid transparent;
     border-right: 15px solid $notice-color;
   }

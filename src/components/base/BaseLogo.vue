@@ -20,7 +20,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Jos';
+    font-family: 'Jos', sans-serif;
     color: #E0AE77;
     background-color: #3A444F;
     border-radius: 10px;

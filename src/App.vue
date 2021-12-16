@@ -26,6 +26,10 @@ export default {
   font-family: 'Jos';
   src: url('./assets/fonts/JosefinSlab.ttf');
 }
+@font-face {
+  font-family: 'Bullet';
+  src: url('./assets/fonts/bullet.otf');
+}
 
 * {
   padding: 0;
@@ -33,7 +37,8 @@ export default {
   outline: none;
 }
 
-#app {
+#app,
+body {
   height: 100vh;
   width: 100vw;
 }
@@ -58,5 +63,12 @@ export default {
 }
 .slide-right-leave-to {
   transform: translate(100%, 0);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -2,8 +2,30 @@
   <div class="sign-in">
     <div class="form-wrapper">
       <logo class="logo"/>
-      <div class="form"></div>
-      <span>{{ $t('message.hello') }}</span>
+      <div class="form">
+        <login-input
+          :placeholder="$t('message.common.loginInput.placeholder')"
+          :faqMessage="$t('message.common.loginInput.faqMessage')"
+          :errorMessage="$t('message.common.loginInput.errorMessage')"
+          @input="value => params.login = value"
+        />
+        <password-input
+          :placeholder="$t('message.common.passwordInput.placeholder')"
+          :faqMessage="$t('message.common.passwordInput.faqMessage')"
+          :errorMessage="$t('message.common.passwordInput.errorMessage')"
+          :marginTop="'2%'"
+          @input="value => params.password = value"
+        />
+        <base-button
+          :placeholder="$t('message.signIn.button')"
+          :disabled="isButtonDisabled"
+        />
+        <div class="register-container">
+          <button class="register-button">
+            <span>{{ $t('message.signIn.registration') }}</span>
+          </button>
+        </div>
+      </div>
       <lang-switcher class="lang-switcher"/>
     </div>
   </div>
@@ -14,15 +36,35 @@ import BaseLogo from './base/BaseLogo.vue';
 import LangSwitcher from './base/LangSwitcher.vue';
 import { SET_AUTH } from '../store/module/auth/actions';
 import { mapGetters } from 'vuex';
+import LoginInput from './common/LoginInput.vue';
 
 export default {
   name: 'SignIn',
+  inject: ['$validator'],
   components: {
     logo: BaseLogo,
-    LangSwitcher
+    LangSwitcher,
+    LoginInput
+  },
+  data() {
+    return {
+      params: {
+        login: '',
+        password: ''
+      }
+    }
   },
   computed: {
-    ...mapGetters(['isAutheficated'])
+    ...mapGetters(['isAutheficated']),
+    isEmptyFields() {
+      return this.params.login.length === 0 || this.params.password.length === 0;
+    },
+    isHasFieldsError() {
+      return this.$validator.errors.has('password-input') || this.$validator.errors.has('login-input');
+    },
+    isButtonDisabled() {
+      return this.isEmptyFields || this.isHasFieldsError;
+    }
   },
   async created() {
     await this.$store.dispatch(SET_AUTH);
@@ -40,7 +82,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #004247;
+    background-color: $sign-in-bgc;
   }
 
   .form-wrapper {
@@ -60,6 +102,7 @@ export default {
     margin-top: 10%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 2px solid #E0AE77;
     border-radius: 1.25rem;
 
@@ -70,5 +113,42 @@ export default {
     position: absolute;
     top: 5%;
     right: 5%;
+  }
+
+  .register-container {
+    width: 90%;
+    height: 50px;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .register-button {
+      width: 140px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Noto Serif', serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+      text-shadow: $base-text-shadow;
+      cursor: pointer;
+      border: 2px solid $sign-in-bgc;
+      border-radius: 10px;
+      background-color: $sign-in-bgc;
+      color: $gold-color;
+      outline: none;
+      transition: all 0.3s ease;
+
+      @include non-selectable-text;
+    }
+
+    .register-button:hover {
+      border-color: $gold-color;
+
+      @include base-box-shadow;
+    }
   }
 </style>

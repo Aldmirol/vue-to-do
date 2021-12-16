@@ -29,7 +29,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid $gold-color;
+    border: 2px solid $gold-color;
     border-radius: 10px;
     cursor: pointer;
 
@@ -41,15 +41,13 @@ export default {
   }
 
 .switcher-text {
-  font-family: 'Jos';
+  font-family: 'Jos', sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   color: $gold-color;
   text-shadow: $base-text-shadow;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+
+  @include non-selectable-text;
 }
 </style>
 

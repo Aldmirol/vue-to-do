@@ -3,3 +3,10 @@
   -moz-box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
   box-shadow: 0px 0px 10px 5px rgb(29 29 30 / 20%);
 }
+
+@mixin non-selectable-text {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
