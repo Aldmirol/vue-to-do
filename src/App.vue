@@ -3,14 +3,36 @@
     <transition :name="transitionName">
       <router-view/>
     </transition>
+    <error-modal
+      v-if="isError"
+      :errorMessage="getError"
+      @close="closeErrorModal"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import BaseErrorModal from './components/base/BaseErrorModal.vue';
+import {PURGE_ERROR} from './store/module/auth/actions';
 export default {
+  components: {
+    'error-modal': BaseErrorModal
+  },
   data() {
     return {
       transitionName: null
+    }
+  },
+  computed: {
+    ...mapGetters(['getError']),
+    isError() {
+      return this.getError.length !== 0;
+    }
+  },
+  methods: {
+    closeErrorModal() {
+      this.$store.dispatch(PURGE_ERROR);
     }
   },
   watch: {
@@ -66,7 +88,7 @@ body {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   opacity: 0;

@@ -7,7 +7,7 @@
           :placeholder="$t('message.common.loginInput.placeholder')"
           :faqMessage="$t('message.common.loginInput.faqMessage')"
           :errorMessage="$t('message.common.loginInput.errorMessage')"
-          @input="value => params.login = value"
+          @input="value => params.email = value"
         />
         <password-input
           :placeholder="$t('message.common.passwordInput.placeholder')"
@@ -19,6 +19,7 @@
         <base-button
           :placeholder="$t('message.signIn.button')"
           :disabled="isButtonDisabled"
+          @click="signIn"
         />
         <div class="register-container">
           <button class="register-button">
@@ -49,15 +50,15 @@ export default {
   data() {
     return {
       params: {
-        login: '',
+        email: '',
         password: ''
       }
     }
   },
   computed: {
-    ...mapGetters(['isAutheficated']),
+    ...mapGetters(['isAutheficated', 'getProfile']),
     isEmptyFields() {
-      return this.params.login.length === 0 || this.params.password.length === 0;
+      return this.params.email.length === 0 || this.params.password.length === 0;
     },
     isHasFieldsError() {
       return this.$validator.errors.has('password-input') || this.$validator.errors.has('login-input');
@@ -66,10 +67,11 @@ export default {
       return this.isEmptyFields || this.isHasFieldsError;
     }
   },
-  async created() {
-    await this.$store.dispatch(SET_AUTH);
-  },
   methods: {
+    async signIn() {
+      console.log(this.$errorMessage('1'));
+      await this.$store.dispatch(SET_AUTH, this.params);
+    }
   }
 }
 </script>

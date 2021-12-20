@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueI18n from 'vue-i18n'
-import ru from './locale/ru'
+import ru from './locale/ru.js'
 import en from './locale/en.js'
 import VeeValidate, {
   Validator
@@ -11,6 +11,8 @@ import VeeValidate, {
 import LoginInput from './components/common/LoginInput.vue'
 import PasswordInput from './components/common/PasswordInput.vue'
 import BaseButton from './components/base/BaseButton.vue'
+import "@/plugins/firebase.js";
+import errorsMap  from './plugins/errorsMap.js'
 
 const locale = 'en';
 
@@ -26,7 +28,7 @@ Vue.use(VeeValidate);
 Validator.extend('login-input', {
   getMessage: 'login error',
   validate: value => {
-    return value.length <= 8;
+    return value.length <= 20;
   }
 });
 
@@ -42,6 +44,10 @@ const i18n = new VueI18n({
     en
   }
 });
+
+Vue.prototype.$errorMessage = function (message) {
+  return errorsMap(message);
+};
 
 new Vue({
   i18n,

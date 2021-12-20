@@ -5,6 +5,7 @@
     `"
     :disabled="disabled"
     :class="disabled ? 'disabled' : 'enabled'"
+    @click="$emit('click')"
   >
     <span>{{ placeholder }}</span>
   </button>

@@ -1,5 +1,8 @@
 export default {
   message: {
+    errorModal: {
+      title: 'ERROR'
+    },
     common: {
       loginInput: {
         title: 'Your login',
