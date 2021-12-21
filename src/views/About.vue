@@ -6,8 +6,24 @@
 </template>
 
 <script>
+import { GET_PROFILE } from '../store/module/profile/actions';
+import { mapGetters } from 'vuex';
+
 export default {
-  name: 'About'
+  name: 'About',
+  created() {
+    const uid = localStorage.getItem('uid');
+
+    this.$store.dispatch(GET_PROFILE, uid);
+  },
+  data() {
+    return {
+      profile: {}
+    }
+  },
+  computed: {
+    ...mapGetters(['getProfile'])
+  }
 }
 </script>
 

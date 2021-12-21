@@ -39,12 +39,6 @@ export default {
       this.$store.dispatch(PURGE_ERROR);
     }
   },
-  created() {
-    this.$router.push({ name: 'About' })
-      .catch(e => {
-        console.log(e);
-      });
-  },
   watch: {
     $route(to, from) {
       this.transitionName = to.name === 'About' ? 'slide-left' : 'slide-right';

@@ -78,9 +78,13 @@ export default {
   },
   methods: {
     async signIn() {
-      this.isButtonSpinner = true;
-      await this.$store.dispatch(SET_AUTH, this.params);
-      this.isButtonSpinner = false;
+      try {
+        this.isButtonSpinner = true;
+        await this.$store.dispatch(SET_AUTH, this.params);
+        this.isButtonSpinner = false;
+      } catch (error) {
+        this.isButtonSpinner = false;
+      }
     }
   }
 }

@@ -24,15 +24,15 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  const isAutheficated = localStorage.getItem('uid');
-  if (!isAutheficated && to.name !== 'SignIn') {
-    next({
-      name: 'SignIn'
-    });
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   const isAutheficated = localStorage.getItem('uid');
+//   if (!isAutheficated && to.name !== 'SignIn') {
+//     next({
+//       name: 'SignIn'
+//     });
+//   } else {
+//     next();
+//   }
+// });
 
 export default router
