@@ -1,8 +1,15 @@
-import axios from 'axios';
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "firebase/auth";
 
 export default class AuthService {
   static signIn(params) {
-    return axios.get('https://www.google.com');
+    const auth = getAuth();
+    const email = params.email;
+    const password = params.password;
+
+    return signInWithEmailAndPassword(auth, email, password);
   }
 }
 

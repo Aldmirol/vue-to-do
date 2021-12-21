@@ -3,7 +3,7 @@
     <div class="error-wrapper">
       <div class="error-modal">
         <div class="error-title">{{ $t('message.errorModal.title') }}</div>
-        <div class="error-message">{{ errorMessage }}</div>
+        <div class="error-message">{{ parsedErrorMessage }}</div>
         <base-button
           :width="'50%'"
           :height="'20%'"
@@ -20,6 +20,11 @@ export default {
   name: 'BaseErrorModal',
   props: {
     errorMessage: String
+  },
+  computed: {
+    parsedErrorMessage() {
+      return this.$errorMessage(this.errorMessage);
+    }
   }
 }
 </script>
@@ -64,6 +69,11 @@ export default {
     font-size: 20px;
     letter-spacing: 0.1rem;
     color: $error-color;
+  }
+
+  .error-message {
+    width: 90%;
+    text-align: center;
   }
 </style>
 

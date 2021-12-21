@@ -13,6 +13,7 @@ import PasswordInput from './components/common/PasswordInput.vue'
 import BaseButton from './components/base/BaseButton.vue'
 import "@/plugins/firebase.js";
 import errorsMap  from './plugins/errorsMap.js'
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 const locale = 'en';
 
@@ -21,6 +22,7 @@ Vue.config.productionTip = false
 Vue.component('login-input', LoginInput);
 Vue.component('password-input', PasswordInput);
 Vue.component('base-button', BaseButton);
+Vue.component('spinner', ClipLoader);
 
 Vue.use(VueI18n);
 Vue.use(VeeValidate);
@@ -28,7 +30,7 @@ Vue.use(VeeValidate);
 Validator.extend('login-input', {
   getMessage: 'login error',
   validate: value => {
-    return value.length <= 20;
+    return value.length <= 30;
   }
 });
 
@@ -46,10 +48,13 @@ const i18n = new VueI18n({
 });
 
 Vue.prototype.$errorMessage = function (message) {
-  return errorsMap(message);
+  const lang = i18n.locale;
+
+  return errorsMap(message, lang);
 };
 
 new Vue({
+  ClipLoader,
   i18n,
   router,
   store,

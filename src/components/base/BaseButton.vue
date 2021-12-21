@@ -7,7 +7,8 @@
     :class="disabled ? 'disabled' : 'enabled'"
     @click="$emit('click')"
   >
-    <span>{{ placeholder }}</span>
+    <spinner v-if="isLoading" :color="'#E0AE77'" :size="spinnerSize"/>
+    <span v-else>{{ placeholder }}</span>
   </button>
 </template>
 
@@ -43,7 +44,9 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    isLoading: Boolean,
+    spinnerSize: String
   }
 }
 </script>

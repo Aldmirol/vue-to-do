@@ -2,7 +2,12 @@
 import {
   initializeApp
 } from 'firebase/app';
+import {
+  getFirestore
+} from "firebase/firestore";
 import 'firebase/auth';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -13,8 +18,10 @@ const firebaseConfig = {
   projectId: "authefication-fea3f",
   storageBucket: "authefication-fea3f.appspot.com",
   messagingSenderId: "657902739937",
+  databaseURL: "https://authefication-fea3f.firebaseio.com",
   appId: "1:657902739937:web:637674b6d778910831b2a0"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const db = getFirestore();

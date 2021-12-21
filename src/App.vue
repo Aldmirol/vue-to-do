@@ -12,12 +12,16 @@
 </template>
 
 <script>
+import HttpService from '@/services/http/index';
 import { mapGetters } from 'vuex';
 import BaseErrorModal from './components/base/BaseErrorModal.vue';
 import {PURGE_ERROR} from './store/module/auth/actions';
 export default {
   components: {
     'error-modal': BaseErrorModal
+  },
+  provide: {
+    $httpService: new HttpService()
   },
   data() {
     return {
@@ -34,6 +38,12 @@ export default {
     closeErrorModal() {
       this.$store.dispatch(PURGE_ERROR);
     }
+  },
+  created() {
+    this.$router.push({ name: 'About' })
+      .catch(e => {
+        console.log(e);
+      });
   },
   watch: {
     $route(to, from) {

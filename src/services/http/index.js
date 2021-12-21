@@ -1,10 +1,12 @@
 import AuthService from "./Auth";
+import ProfileService from "./Profile";
 
 export class HttpService {
   constructor() {
-    this.auth = AuthService;
+    window.$httpService = this;
 
-    this = window.$httpService;
+    this.auth = AuthService;
+    this.profile = ProfileService;
   }
 }
 

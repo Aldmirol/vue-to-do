@@ -5,9 +5,9 @@ export default {
     },
     common: {
       loginInput: {
-        title: 'Your login',
-        placeholder: 'Enter login',
-        faqMessage: 'Login must have at least 1 character, maximum 8 characters. Any letters, numbers and signs are allowed',
+        title: 'Your email',
+        placeholder: 'Enter email',
+        faqMessage: 'Email must have at least 1 character, maximum 30 characters. Any letters, numbers and signs are allowed',
         errorMessage: 'Login entered incorrectly'
       },
       passwordInput: {

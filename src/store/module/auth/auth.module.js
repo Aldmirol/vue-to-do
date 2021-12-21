@@ -33,26 +33,21 @@ const getters = {
 }
 
 const actions = {
-  [SET_AUTH](context, params) {
-    try {
-      const auth = getAuth();
-      const email = params.email;
-      const password = params.password;
+  async [SET_AUTH](context, params) {
+      try {
+        await window.$httpService.auth.signIn(params)
+          .then(res => {
+            localStorage.setItem('uid', res.user.uid);
 
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(res => {
-          localStorage.setItem('uid', res.user.uid);
-
-          context.commit(SET_AUTHIFICATION);
-          context.dispatch(GET_PROFILE);
-        })
-        .catch(error => {
-          context.commit(SET_ERROR, error.code);
-        })
-    } catch (error) {
-      context.commit(SET_ERROR, error);
-    }
+            context.commit(SET_AUTHIFICATION);
+            context.dispatch(GET_PROFILE);
+          })
+          .catch(error => {
+            context.commit(SET_ERROR, error.code);
+          })
+      } catch (error) {
+        context.commit(SET_ERROR, error);
+      }
   },
   [GET_PROFILE](context) {
     try {
@@ -72,7 +67,6 @@ const mutations = {
     state.isAutheficated = true;
   },
   [SET_ERROR](state, error) {
-    console.log(error);
     state.error = error;
   },
   [SET_PROFILE](state, data) {

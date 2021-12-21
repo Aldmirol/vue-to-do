@@ -20,6 +20,8 @@
           :placeholder="$t('message.signIn.button')"
           :disabled="isButtonDisabled"
           @click="signIn"
+          :spinnerSize="'25px'"
+          :isLoading="isButtonSpinner"
         />
         <div class="register-container">
           <button class="register-button">
@@ -38,6 +40,7 @@ import LangSwitcher from './base/LangSwitcher.vue';
 import { SET_AUTH } from '../store/module/auth/actions';
 import { mapGetters } from 'vuex';
 import LoginInput from './common/LoginInput.vue';
+import 'firebase/firestore'
 
 export default {
   name: 'SignIn',
@@ -47,13 +50,19 @@ export default {
     LangSwitcher,
     LoginInput
   },
+  inject: ['$httpService'],
   data() {
     return {
       params: {
         email: '',
         password: ''
-      }
+      },
+      isButtonSpinner: false
     }
+  },
+  async created() {
+    const profile = await this.$httpService.profile.getProfile('jZxNgvAwUFWZi1KrazepsmS2w4E2');
+    console.log(profile.data());
   },
   computed: {
     ...mapGetters(['isAutheficated', 'getProfile']),
@@ -69,8 +78,9 @@ export default {
   },
   methods: {
     async signIn() {
-      console.log(this.$errorMessage('1'));
+      this.isButtonSpinner = true;
       await this.$store.dispatch(SET_AUTH, this.params);
+      this.isButtonSpinner = false;
     }
   }
 }

@@ -1,8 +1,11 @@
-export default function errorsMap(message) {
+export default function errorsMap(message, lang) {
   let errorMessage;
   switch (message) {
-    case '1': {
-      errorMessage = 'yes';
+    case 'auth/user-not-found': {
+      const ruMessage = 'Пользователя с такой электронной почтой не существует';
+      const enMessage = 'The user with this email does not exist';
+
+      errorMessage = lang === 'ru' ? ruMessage : enMessage;
       break;
     }
     case '2': {
